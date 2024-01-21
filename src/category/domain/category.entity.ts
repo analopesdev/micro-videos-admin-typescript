@@ -7,6 +7,7 @@ export type CategoryConstructorProps = {
 }
 
 export type CategoryCreateCommand = {
+  birth_date: string
   name: string
   description?: string | null
   is_active?: boolean
@@ -29,7 +30,8 @@ export class Category {
 
   // factory
   static create(props: CategoryCreateCommand): Category {
-    return new Category(props)
+    const birth_date = new BirthDate(props.birth_date)
+    return new Category({ birth_date, ...props })
   }
 
   changeName(name: string): void {
@@ -58,3 +60,13 @@ export class Category {
     }
   }
 }
+
+class BirthDate {
+  constructor(private readonly value: string) {}
+  getValue(): string {
+    return this.value
+  }
+}
+
+// livres de efeitos colaterais
+// imuabilidade
